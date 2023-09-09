@@ -1,82 +1,37 @@
-function calculater(x, op1, y, op2, z){
-    if (
-        (typeof x !== 'number' || typeof y !== 'number') ||
-        (typeof z !== 'undefined' && typeof z !== 'number')
-      ) {
+function calculater(numbers) { // ex : numbers = [1, +, 2]
+    if (!Array.isArray(numbers) || numbers.length < 3) {
+      throw new Error("Invalid input");
+    }
+  
+    let result = numbers[0];
+    for (let i = 1; i < numbers.length - 1; i += 2) {
+      const operator = numbers[i];
+      const operand = numbers[i + 1];
+  
+      if (typeof operand !== 'number') {
         throw new Error("Invalid input type");
       }
-    else if(isNaN(x) || isNaN(y) || (z != undefined && isNaN(z))){
-        throw new Error("Invalid input type")
+  
+      if (operand > 1000) {
+        continue;
+      }
+  
+      if (operator === '+') {
+        result += operand;
+      } else if (operator === '-') {
+        result -= operand;
+      } else if (operator === '*') {
+        result *= operand;
+      } else if (operator === '/') {
+        if (operand === 0) {
+          throw new Error("Division by zero");
+        }
+        result /= operand;
+      } else {
+        throw new Error("Invalid operator");
+      }
     }
-    else if(op1 == "+" && op2 == undefined){
-        return x + y;
-    }
-    else if(op1 == "*" && op2 == undefined){
-        return x * y;
-    }
-    else if(op1 == "-" && op2 == undefined){
-        return x - y;
-    }
-    else if(op1 == "/" && op2 == undefined){
-        if(y != 0) return x / y;
-        else throw new Error("Division by zero")
-    }
-    else if(op1 == "+" && op2 == "*"){
-        return x + (y * z)
-    }
-    else if(op1 == "+" && op2 == "/"){
-        if(z != 0) return x + y / z;
-        else throw new Error("Division by zero")
-    }
-    else if(op1 == "+" && op2 == "-"){
-        return x + y - x
-    }
-    else if(op1 == "+" && op2 == "+"){
-        return x + y + x
-    }
-    else if(op1 == "-" && op2 == "+"){
-        return x - y + x
-    }
-    else if(op1 == "-" && op2 == "*"){
-        return x - y * x
-    }
-    else if(op1 == "-" && op2 == "-"){
-        return x - y - x
-    }
-    else if(op1 == "-" && op2 == "/"){
-        if(z != 0) return x - y / z;
-        else throw new Error("Division by zero")
-    }
-    else if(op1 == "*" && op2 == "*"){
-        return x * y * x
-    }
-    else if(op1 == "*" && op2 == "+"){
-        return x * y + x
-    }
-    else if(op1 == "*" && op2 == "-"){
-        return x * y - x
-    }
-    else if(op1 == "*" && op2 == "/"){
-        if(z != 0) return x * y / z;
-        else throw new Error("Division by zero")
-    }
-    else if(op1 == "/" && op2 == "-"){
-        if(y != 0) return x / y - z;
-        else throw new Error("Division by zero")
-    }
-    else if(op1 == "/" && op2 == "+"){
-        if(y != 0) return x / y + z;
-        else throw new Error("Division by zero")
-    }
-    else if(op1 == "/" && op2 == "*"){
-        if(y != 0) return x / y * z;
-        else throw new Error("Division by zero")
-    }
-    else if(op1 == "/" && op2 == "/"){
-        if(y != 0 && z!= 0) return x / y * z;
-        else throw new Error("Division by zero")
-    }
-    else
-        throw new Error ("Invalid operator")
-}
-module.exports = calculater;
+  
+    return result;
+  }
+  
