@@ -1,5 +1,11 @@
 function calculater(x, op1, y, op2, z){
-    if(isNaN(x) || isNaN(y) || (z != undefined && isNaN(z))){
+    if (
+        (typeof x !== 'number' || typeof y !== 'number') ||
+        (typeof z !== 'undefined' && typeof z !== 'number')
+      ) {
+        throw new Error("Invalid input type");
+      }
+    else if(isNaN(x) || isNaN(y) || (z != undefined && isNaN(z))){
         throw new Error("Invalid input type")
     }
     else if(op1 == "+" && op2 == undefined){
@@ -16,7 +22,7 @@ function calculater(x, op1, y, op2, z){
         else throw new Error("Division by zero")
     }
     else if(op1 == "+" && op2 == "*"){
-        return x + y * x
+        return x + (y * z)
     }
     else if(op1 == "+" && op2 == "/"){
         if(z != 0) return x + y / z;
