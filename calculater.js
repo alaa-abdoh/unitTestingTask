@@ -73,3 +73,4 @@ function calculater(x, op1, y, op2, z){
     else
         throw new Error ("Invalid operator")
 }
+module.exports = calculater;
