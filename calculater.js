@@ -1,37 +1,29 @@
-function calculater(numbers) { // ex : numbers = [1, +, 2]
-    if (!Array.isArray(numbers) || numbers.length < 3) {
-      throw new Error("Invalid input");
-    }
-  
-    let result = numbers[0];
-    for (let i = 1; i < numbers.length - 1; i += 2) {
-      const operator = numbers[i];
-      const operand = numbers[i + 1];
-  
-      if (typeof operand !== 'number') {
-        throw new Error("Invalid input type");
-      }
-  
-      if (operand > 1000) {
-        continue;
-      }
-  
-      if (operator === '+') {
-        result += operand;
-      } else if (operator === '-') {
-        result -= operand;
-      } else if (operator === '*') {
-        result *= operand;
-      } else if (operator === '/') {
-        if (operand === 0) {
-          throw new Error("Division by zero");
+function calculater(...args) {
+    let result = args[0];
+    for(let i=1; i<args.length; i+=2){
+      if(typeof args[i+1] != "number" || typeof args[0] != "number")
+        throw new Error("Invalid input type")
+      else {
+        let operation = args[i];
+        switch(operation){
+          case "+" :
+            result += args[i+1];
+            break;
+          case "*" :
+            result *= args[i+1];
+            break;
+          case "-" :
+            result -= args[i+1];
+            break;
+          case "/" :
+            if (args[i+1] != 0)  result /= args[i+1]
+            else throw new Error("Division by zero"); 
+            break;
+          default:
+            throw new Error("Invalid operator")  
         }
-        result /= operand;
-      } else {
-        throw new Error("Invalid operator");
+        return result
       }
-    }
-  
-    return result;
   }
-  
+}
+module.exports = calculater
